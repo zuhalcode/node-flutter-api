@@ -49,6 +49,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   // if email exist
   const user = await User.findOne({ email: req.body.email });
+
   if (!user)
     return res.status(400).json({
       status: res.statusCode,
@@ -69,9 +70,31 @@ exports.login = async (req, res) => {
   res.header("auth-token", token).json({
     token,
   });
+
+  let oldTokens = user.tokens || [];
+  if (oldTokens.length)
+    oldTokens = oldTokens.filter((token) => {
+      const timeDiff = (Date.now() - parseInt(token.signedAt)) / 1000;
+      if (timeDiff < 86400) return token;
+    });
+
+  await User.findByIdAndUpdate(user._id, {
+    tokens: [{ tokens: token, signedAt: Date.now().toString() }],
+  });
 };
 
 exports.logout = async (req, res) => {
-  // if (req.headers && req.headers["auth-token"]) res.json("ok");
-  res.json("logout function");
+  if (req.headers && req.headers["auth-token"]) {
+    const token = req.headers["auth-token"].split(" ");
+
+    if (!token) res.status(401).json({ success: false, message: "Authorization failed!!" });
+
+    const tokens = req.user.tokens;
+
+    const newToken = tokens.filter((t) => t !== token);
+
+    await User.findByIdAndUpdate(req.user._id, { tokens: newToken });
+
+    res.json({ success: true, message: "Logout Succesfully!!" });
+  }
 };
