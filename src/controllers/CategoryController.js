@@ -24,5 +24,5 @@ exports.create = async (req, res) => {
 };
 
 exports.show = async (req, res) => {
-  res.json("show category function");
+  res.status(200).json("show category function");
 };
