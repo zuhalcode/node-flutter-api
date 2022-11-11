@@ -3,10 +3,11 @@ const cors = require("cors");
 const app = express();
 
 // db connection
-const db = require("./src/config/db");
+require("./src/config/db");
 
 // user routes
-const authRoutes = require("./src/routes/api");
+const authRoutes = require("./src/routes/auth");
+const categoryRoutes = require("./src/routes/categories");
 
 // set post and listen for our request
 const PORT = process.env.PORT || 4000;
@@ -16,15 +17,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// cors handling
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//   console.clear();
-//   next();
-// });
+app.listen(PORT, () => console.log(`Backend-framework is running on port ${PORT}`));
 
-app.listen(PORT, () => console.log(`Node-flutter-api is running on port ${PORT}`));
-
-app.use("/api", authRoutes);
+app.use("/api", [authRoutes, categoryRoutes]);

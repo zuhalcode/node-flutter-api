@@ -65,13 +65,13 @@ exports.login = async (req, res) => {
     });
 
   // Make jwt token
-  const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
+  const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
   res.header("auth-token", token).json({
     token,
   });
 };
 
-exports.logout = async (req, res, next) => {
+exports.logout = async (req, res) => {
+  // if (req.headers && req.headers["auth-token"]) res.json("ok");
   res.json("logout function");
-  next();
 };
