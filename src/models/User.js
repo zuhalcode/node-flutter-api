@@ -20,7 +20,7 @@ const UserSchema = mongoose.Schema(
       max: 1024,
       required: true,
     },
-
+    isAdmin: Boolean,
     avatar: String,
     tokens: [{ type: Object }],
   },

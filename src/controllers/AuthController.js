@@ -30,10 +30,11 @@ exports.register = async (req, res) => {
     name: req.body.name,
     email: req.body.email,
     password: hashPassword,
+    isAdmin: false,
   });
 
   try {
-    const saveUser = await user.save();
+    await user.save();
     return res.status(200).json({
       status: res.statusCode,
       message: "User registration success",
@@ -86,14 +87,9 @@ exports.login = async (req, res) => {
 exports.logout = async (req, res) => {
   if (req.headers && req.headers["auth-token"]) {
     const token = req.headers["auth-token"].split(" ");
-
     if (!token) res.status(401).json({ success: false, message: "Authorization failed!!" });
 
-    const tokens = req.user.tokens;
-
-    const newToken = tokens.filter((t) => t !== token);
-
-    await User.findByIdAndUpdate(req.user._id, { tokens: newToken });
+    await User.findByIdAndUpdate(req.user._id, { tokens: [] });
 
     res.json({ success: true, message: "Logout Succesfully!!" });
   }

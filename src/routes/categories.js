@@ -4,10 +4,10 @@ const router = express.Router();
 const categoryController = require("../controllers/CategoryController");
 
 // token auth
-const verifyToken = require("../middleware/verifyToken");
+const { verifyToken, isAdmin } = require("../middleware/auth");
 
 router.get("/categories", categoryController.index);
-router.post("/categories/create", verifyToken, categoryController.create);
-router.get("/categories/show", categoryController.show);
+router.post("/categories/create", [verifyToken, isAdmin], categoryController.create);
+router.get("/categories/:slug", categoryController.show);
 
 module.exports = router;

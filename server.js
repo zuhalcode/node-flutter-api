@@ -8,6 +8,7 @@ require("./src/config/db");
 // user routes
 const authRoutes = require("./src/routes/auth");
 const categoryRoutes = require("./src/routes/categories");
+const productRoutes = require("./src/routes/products");
 
 // set post and listen for our request
 const PORT = process.env.PORT || 4000;
@@ -19,4 +20,4 @@ app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => console.log(`Backend-framework is running on port ${PORT}`));
 
-app.use("/api", [authRoutes, categoryRoutes]);
+app.use("/api", [authRoutes, categoryRoutes, productRoutes]);

@@ -24,5 +24,10 @@ exports.create = async (req, res) => {
 };
 
 exports.show = async (req, res) => {
-  res.status(200).json("show category function");
+  try {
+    const category = await Category.findOne({ slug: req.params.slug });
+    res.send({ category, zuba: req.query.option });
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
 };
