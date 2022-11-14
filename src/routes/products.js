@@ -9,8 +9,8 @@ const { verifyToken, isAdmin } = require("../middleware/auth");
 router.get("/products", productController.index);
 router.post("/products/create", [verifyToken, isAdmin], productController.create);
 router.put("/products/:id", [verifyToken, isAdmin], productController.edit);
-router.delete("/products/:id", verifyToken, productController.delete);
-router.get("/products/:category", verifyToken, productController.sort);
+router.delete("/products/:id", [verifyToken, isAdmin], productController.delete);
+router.get("/products/:category", productController.sort);
 
 router.post("/products/migrate", [verifyToken, isAdmin], async (req, res) => {
   await Product.remove();

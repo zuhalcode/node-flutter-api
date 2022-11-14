@@ -1,43 +1,43 @@
 API ACCESS:
-https://backend-ruesto.herokuapp.com/api/{grouping}/{endpoint}
+https://ruesto-api-production.up.railway.app/api/{grouping}/{endpoint}
 
 GROUP: AUTH
 [1] - REGISTER
-https://backend-ruesto.herokuapp.com/api/auth/register : POST
+https://ruesto-api-production.up.railway.app/api/auth/register : POST
 Request Body {name, email, password}
 
 [2] - LOGIN
-https://backend-ruesto.herokuapp.com/api/auth/login : POST
+https://ruesto-api-production.up.railway.app/api/auth/login : POST
 Request Body {email, password}
 Response => {tokens}
 Add headers => {auth-token = tokens}
 
 [3] - LOGOUT
-https://backend-ruesto.herokuapp.com/api/auth/logout : POST
+https://ruesto-api-production.up.railway.app/api/auth/logout : POST
 Request headers {auth-token}
 
 GROUP: CATEGORIES
 [1] - GET ALL CATEGORY
-https://backend-ruesto.herokuapp.com/api/categories : GET
+https://ruesto-api-production.up.railway.app/api/categories : GET
 Response => {_id, name, slug, timestamps}
 
 GROUP: PRODUCTS
 [1] - GET ALL PRODUCTS
-https://backend-ruesto.herokuapp.com/api/products : GET
+https://ruesto-api-production.up.railway.app/api/products : GET
 Response => {_id, name, category, price, timestamps}
 
 [2] - CREATE PRODUCT
-https://backend-ruesto.herokuapp.com/api/products/create : POST
+https://ruesto-api-production.up.railway.app/api/products/create : POST
 Request body {name, category, price}
 Response => {message}
 
 [3] - EDIT PRODUCT
-https://backend-ruesto.herokuapp.com/api/products/:id : PUT
+https://ruesto-api-production.up.railway.app/api/products/:id : PUT
 Request body {name, category, price}
 Response => {message}
 
 [4] - DELETE PRODUCT
-https://backend-ruesto.herokuapp.com/api/products/:id : DELETE
+https://ruesto-api-production.up.railway.app/api/products/:id : DELETE
 Response => {message}
 
 

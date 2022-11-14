@@ -2,11 +2,20 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
+// socket io connection
+let http = require("http");
+let server = http.createServer(app);
+let io = require("socket.io")(server, {
+  cors: { origin: "*" },
+});
+io.on("connection", (socket) => console.log("Socket Connected"));
+
 // db connection
 require("./src/config/db");
 
 // user routes
 const authRoutes = require("./src/routes/auth");
+const cartRoutes = require("./src/routes/cart");
 const categoryRoutes = require("./src/routes/categories");
 const productRoutes = require("./src/routes/products");
 
@@ -18,6 +27,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(PORT, () => console.log(`Backend-framework is running on port ${PORT}`));
+// api routes
+app.use("/api", [authRoutes, categoryRoutes, productRoutes, cartRoutes]);
 
-app.use("/api", [authRoutes, categoryRoutes, productRoutes]);
+// start server
+server.listen(PORT, "0.0.0.0", () => console.log(`Backend-framework is running on port ${PORT}`));
