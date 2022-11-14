@@ -19,7 +19,7 @@ exports.store = async (req, res) => {
               },
             },
           }
-        ).exec((err, _cart) => (err ? res.status(200).json(err) : res.status(200).json(_cart)));
+        ).exec((err, _cart) => (err ? res.status(200).json(err) : res.status(200).json(userCart)));
       } else {
         Cart.findOneAndUpdate(
           { user: req.user._id },
