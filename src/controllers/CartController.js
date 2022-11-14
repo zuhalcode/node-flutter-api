@@ -25,7 +25,7 @@ exports.store = async (req, res) => {
           { user: req.user._id },
           {
             $push: {
-              cartItems: req.body.cartItems,
+              cartItems: [req.body.cartItems],
             },
           }
         ).exec((err, _cart) => (err ? res.status(200).json(err) : res.status(200).json(_cart)));
