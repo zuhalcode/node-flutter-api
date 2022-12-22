@@ -12,6 +12,8 @@ exports.create = async (req, res) => {
     name: req.body.name.toLowerCase(),
     category: req.body.category,
     price: req.body.price,
+    image: req.body.image,
+    desc: req.body.desc,
   };
 
   const newProduct = new Product(productObj);
