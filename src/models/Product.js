@@ -10,7 +10,6 @@ const ProductSchema = mongoose.Schema(
 
     category: {
       type: String,
-      required: true,
     },
 
     price: {
@@ -19,9 +18,13 @@ const ProductSchema = mongoose.Schema(
       maxLength: 32,
     },
 
+    desc: {
+      type: String,
+      max: 255,
+    },
+
     image: {
-      type: Buffer,
-      contentType: String,
+      type: String,
     },
   },
   { timestamps: true }

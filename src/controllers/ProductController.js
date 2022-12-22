@@ -10,8 +10,9 @@ exports.index = async (req, res) => {
 exports.create = async (req, res) => {
   const productObj = {
     name: req.body.name.toLowerCase(),
-    category: req.body.category,
     price: req.body.price,
+    desc: req.body.desc,
+    image: req.body.image,
   };
 
   const newProduct = new Product(productObj);
