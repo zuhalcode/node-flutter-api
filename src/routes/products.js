@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
 
 const productController = require("../controllers/ProductController");
 
@@ -9,7 +7,7 @@ const productController = require("../controllers/ProductController");
 const { verifyToken, isAdmin } = require("../middleware/auth");
 
 router.get("/products", productController.index);
-router.post("/products/create", [verifyToken, isAdmin, upload.single("productImages")], productController.create);
+router.post("/products/create", [verifyToken, isAdmin], productController.create);
 router.put("/products/:id", [verifyToken, isAdmin], productController.edit);
 router.delete("/products/:id", [verifyToken, isAdmin], productController.delete);
 router.get("/products/:category", productController.sort);

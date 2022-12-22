@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
     name: req.body.name.toLowerCase(),
     price: req.body.price,
     desc: req.body.desc,
-    image: req.body.image,
+    image: req.file.path,
   };
 
   const newProduct = new Product(productObj);
