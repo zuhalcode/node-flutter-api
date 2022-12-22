@@ -5,10 +5,6 @@ const app = express();
 // socket io connection
 let http = require("http");
 let server = http.createServer(app);
-let io = require("socket.io")(server, {
-  cors: { origin: "*" },
-});
-io.on("connection", (socket) => console.log("Socket Connected"));
 
 // db connection
 require("./src/config/db");
