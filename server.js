@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const path = require("path");
 
 const multer = require("multer");
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, "productImages"),
-  filename: (req, file, cb) => cb(null, `${new Date().getTime() - file.originalname}`),
+  filename: (req, file, cb) => cb(null, file.originalname),
 });
 
 const fileFilter = (req, file, cb) => {
@@ -33,7 +34,8 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single("image"));
+app.use(multer({ storage: fileStorage }).single("image"));
+app.use("/productImages", express.static(path.join(__dirname, "productImages")));
 
 // api routes
 app.use("/api", [authRoutes, categoryRoutes, productRoutes, cartRoutes]);

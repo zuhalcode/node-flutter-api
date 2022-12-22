@@ -8,6 +8,7 @@ exports.index = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
+  console.log(req.file);
   const productObj = {
     name: req.body.name.toLowerCase(),
     price: req.body.price,
