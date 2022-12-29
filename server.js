@@ -17,13 +17,6 @@ const fileFilter = (req, file, cb) => {
 // socket io connection
 let http = require("http");
 let server = http.createServer(app);
-<<<<<<< HEAD
-// let io = require("socket.io")(server, {
-//   cors: { origin: "*" },
-// });
-// io.on("connection", (socket) => console.log("Socket Connected"));
-=======
->>>>>>> 2c6b8cfcd5ee7afaacedeffef97357149f46a436
 
 // db connection
 require("./src/config/db");
