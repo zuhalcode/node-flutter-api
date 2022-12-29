@@ -12,19 +12,15 @@ exports.create = async (req, res) => {
   const productObj = {
     name: req.body.name.toLowerCase(),
     price: req.body.price,
-<<<<<<< HEAD
     image: req.body.image,
     desc: req.body.desc,
-=======
-    desc: req.body.desc,
-    image: req.file.path,
->>>>>>> 2c6b8cfcd5ee7afaacedeffef97357149f46a436
   };
 
   const newProduct = new Product(productObj);
   newProduct.save((error, product) => {
     if (error) return res.status(400).json({ error });
-    if (product) return res.status(200).json({ message: "Product created successfully" });
+    if (product)
+      return res.status(200).json({ message: "Product created successfully" });
   });
 };
 
@@ -42,7 +38,11 @@ exports.edit = async (req, res) => {
     const id = req.params.id;
     const updates = req.body;
 
-    Product.findByIdAndUpdate(id, updates).exec((err) => (err ? res.send(err) : res.status(200).json({ message: "Product update successfully" })));
+    Product.findByIdAndUpdate(id, updates).exec((err) =>
+      err
+        ? res.send(err)
+        : res.status(200).json({ message: "Product update successfully" })
+    );
   } catch (err) {
     res.send(err);
   }
@@ -52,7 +52,11 @@ exports.delete = async (req, res) => {
   try {
     const id = req.params.id;
 
-    Product.findByIdAndDelete(id).exec((err) => (err ? res.send(err) : res.status(200).json({ message: "Product deleted successfully" })));
+    Product.findByIdAndDelete(id).exec((err) =>
+      err
+        ? res.send(err)
+        : res.status(200).json({ message: "Product deleted successfully" })
+    );
   } catch (err) {
     res.send(err);
   }
