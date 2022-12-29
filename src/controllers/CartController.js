@@ -6,26 +6,37 @@ exports.store = async (req, res) => {
     if (userCart) {
       // if cart exist update cart by quantity
       const product = req.body.cartItems.product;
-      const productExist = userCart.cartItems.find((c) => c.product.toString() === product);
+      const productExist = userCart.cartItems.find((c) => c.product == product);
 
       if (productExist) {
+        // userCart.updateOne(
+        //   { cartItems: req.cartItems },
+        //   {
+        //     $inc: {
+        //       "cartItems.$[element].quantity": 20,
+        //     },
+        //     arrayFilters: {
+        //       element: "636f71fbede7c2cc0460adbe",
+        //     },
+        //   }
+        // );
+        // console.log(userCart);
         Cart.findOneAndUpdate(
           { user: req.user._id, "cartItems.product": product },
           {
-            $set: {
-              cartItems: {
-                ...req.body.cartItems,
-                quantity: productExist.quantity + req.body.cartItems.quantity,
+            $inc: {
+              "cartItems.0": {
+                quantity: 1,
               },
             },
           }
-        ).exec((err, _cart) => (err ? res.status(200).json(err) : res.status(200).json(userCart)));
+        ).exec((err, _cart) => (err ? res.status(200).json(err) : res.status(200).json({ _cart })));
       } else {
         Cart.findOneAndUpdate(
           { user: req.user._id },
           {
             $push: {
-              cartItems: [req.body.cartItems],
+              cartItems: req.body.cartItems,
             },
           }
         ).exec((err, _cart) => (err ? res.status(200).json(err) : res.status(200).json(_cart)));
