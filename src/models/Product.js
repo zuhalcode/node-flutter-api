@@ -11,7 +11,6 @@ const ProductSchema = mongoose.Schema(
 
     category: {
       type: String,
-      required: true,
     },
 
     price: {
@@ -27,7 +26,10 @@ const ProductSchema = mongoose.Schema(
 
     image: {
       type: String,
+<<<<<<< HEAD
       contentType: String,
+=======
+>>>>>>> 2c6b8cfcd5ee7afaacedeffef97357149f46a436
     },
   },
   { timestamps: true }

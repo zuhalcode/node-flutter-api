@@ -1,14 +1,29 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const path = require("path");
+
+const multer = require("multer");
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, "productImages"),
+  filename: (req, file, cb) => cb(null, file.originalname),
+});
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpg") cb(null, true);
+  else cb(null, false);
+};
 
 // socket io connection
 let http = require("http");
 let server = http.createServer(app);
+<<<<<<< HEAD
 // let io = require("socket.io")(server, {
 //   cors: { origin: "*" },
 // });
 // io.on("connection", (socket) => console.log("Socket Connected"));
+=======
+>>>>>>> 2c6b8cfcd5ee7afaacedeffef97357149f46a436
 
 // db connection
 require("./src/config/db");
@@ -26,6 +41,8 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(multer({ storage: fileStorage }).single("image"));
+app.use("/productImages", express.static(path.join(__dirname, "productImages")));
 
 // api routes
 app.use("/api", [authRoutes, categoryRoutes, productRoutes, cartRoutes]);

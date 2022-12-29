@@ -8,12 +8,17 @@ exports.index = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
+  console.log(req.file);
   const productObj = {
     name: req.body.name.toLowerCase(),
-    category: req.body.category,
     price: req.body.price,
+<<<<<<< HEAD
     image: req.body.image,
     desc: req.body.desc,
+=======
+    desc: req.body.desc,
+    image: req.file.path,
+>>>>>>> 2c6b8cfcd5ee7afaacedeffef97357149f46a436
   };
 
   const newProduct = new Product(productObj);
