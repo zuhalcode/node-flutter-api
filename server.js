@@ -49,11 +49,19 @@ app.use(
   "/productImages",
   express.static(path.join(__dirname, "productImages"))
 );
+app.use(multer({ storage: fileStorage }).single("image"));
+app.use(
+  "/productImages",
+  express.static(path.join(__dirname, "productImages"))
+);
 
 // api routes
 app.use("/api", [authRoutes, categoryRoutes, productRoutes, cartRoutes]);
 
 // start server
+server.listen(PORT, "0.0.0.0", () =>
+  console.log(`Backend-framework is running on port ${PORT}`)
+);
 server.listen(PORT, "0.0.0.0", () =>
   console.log(`Backend-framework is running on port ${PORT}`)
 );
