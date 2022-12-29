@@ -1,3 +1,4 @@
+const string = require("@hapi/joi/lib/types/string");
 const mongoose = require("mongoose");
 
 const ProductSchema = mongoose.Schema(
@@ -19,8 +20,13 @@ const ProductSchema = mongoose.Schema(
       maxLength: 32,
     },
 
+    desc: {
+      type: String,
+      max: 255,
+    },
+
     image: {
-      type: Buffer,
+      type: String,
       contentType: String,
     },
   },
