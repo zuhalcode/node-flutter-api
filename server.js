@@ -60,5 +60,5 @@ app.use("/api", [authRoutes, categoryRoutes, productRoutes, cartRoutes]);
 
 // start server
 server.listen(PORT, "0.0.0.0", () =>
-  console.log(`Backend-framework is running on port ${PORT}`)
+  console.log(`Backend-framework 123 is running on port ${PORT}`)
 );
